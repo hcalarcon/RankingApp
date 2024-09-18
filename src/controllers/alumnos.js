@@ -18,10 +18,10 @@ export const getAllPersons = async (req = null, res = null) => {
   }
 };
 
-export const saveRate = async (name, rate) => {
+export const saveRate = async (name, rate, time) => {
   try {
-    const q = "UPDATE personas SET rankg=? WHERE username=?";
-    const datos = [rate, name];
+    const q = "UPDATE personas SET rankg=?, last_update=? WHERE username=?";
+    const datos = [rate, name, time];
     const [result] = await pool.query(q, datos);
 
     return result.affectedRows === 1;
