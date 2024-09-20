@@ -21,7 +21,7 @@ export const getAllPersons = async (req = null, res = null) => {
 export const saveRate = async (name, rate, time) => {
   try {
     const q = "UPDATE personas SET rankg=?, last_update=? WHERE username=?";
-    const datos = [rate, name, time];
+    const datos = [rate, time, name];
     const [result] = await pool.query(q, datos);
 
     return result.affectedRows === 1;
@@ -34,11 +34,11 @@ export const getPersonAndRepoData = async (req = null, res = null) => {
   try {
     const q = `
       SELECT DISTINCT
-      p.id,
-        p.nombre, 
-        p.apellido, 
+        p.id,
+        p.nombre,  
         p.rankg, 
         p.username, 
+        p.last_update,
         r.nombre AS repo
       FROM personas p
       LEFT JOIN repositorios r ON p.id = r.persona_id
